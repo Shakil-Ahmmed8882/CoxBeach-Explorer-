@@ -1,23 +1,29 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../🟢Utils/UseAuth";
 
 
 const Register = () => {
+      const {createUser} = useAuth()
 
-      const handleLogin = (e) =>{
+
+      const handleRegister = (e) =>{
             e.preventDefault()
       
             const formData = new FormData(e.currentTarget)
             const email = formData.get('email')
             const password = formData.get('password')
-      
-            console.log(email, password)
+            
+            createUser(email,password)
+            .then(()=> alert('created an account'))
+            .catch(err => console.error(err))
+            
       
        }
       
         return (
           <div className="w-full h-[70vh] flex-col flex items-center">
             <h1 className="text-3xl font-bold pb-5">Register</h1>
-            <form onSubmit={handleLogin} className="w-2/5 mx-auto">
+            <form onSubmit={handleRegister} className="w-2/5 mx-auto">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-bold">Name</span>

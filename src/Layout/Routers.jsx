@@ -3,6 +3,8 @@ import Root from "./Root";
 import Home from "../Components/Home";
 import Login from "../Components/Form/Login";
 import Register from "../Components/Form/Register";
+import UserHome from "../Components/Private/UserHome";
+import PrivateRoute from "../Components/Private/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
       {
         path:'/register',
         element:<Register></Register>
+      },
+      {
+            path:'/userHome',
+            element:<PrivateRoute><UserHome></UserHome></PrivateRoute>
       },
       {
             path:'*',

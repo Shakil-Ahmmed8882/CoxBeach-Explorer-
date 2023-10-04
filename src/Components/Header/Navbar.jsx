@@ -1,7 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../public/img/logo.png";
+import useAuth from "../../🟢Utils/UseAuth";
 
 const Navbar = () => {
+
+      const {user,logOut} = useAuth()
+
+
+      const handleLogOut = () => {
+            logOut()
+            .then(()=> console.log('logged out'))
+            .catch(err => console.error(err))
+      }
+
   const navLinks = (
     <>
       <NavLink to="/">Home</NavLink>
@@ -9,6 +20,7 @@ const Navbar = () => {
       <NavLink to="/destination">Destination</NavLink>
       <NavLink to="/blog">Blog</NavLink>
       <NavLink to="/contact">Contact</NavLink>
+       <Link to='/userHome'>User</Link> 
     </>
   );
 
@@ -44,8 +56,19 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal gap-8 px-1">{navLinks}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex">
+       {user?<>
+            <Link onClick={handleLogOut} to='/' className="btn bg-primary-clr">Logout</Link>
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full flex">
+          <img src={user.photoURL? user.photoURL: 'https://th.bing.com/th/id/R.fd5a137d4cc43657449836c511c422e1?rik=xs4NJnZD7SrL9w&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_24787.png&ehk=XT7ycIEO1QBstZHkYYA%2fmHm7bSjaBM1nSo61Bl%2bnJSs%3d&risl=&pid=ImgRaw&r=0'} />
+        </div>
+      </label>
+       </>:
         <Link to='/login' className="btn bg-primary-clr">Login</Link>
+       }
+       
+        
       </div>
     </div>
   );
